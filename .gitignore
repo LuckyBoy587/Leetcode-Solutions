@@ -1,0 +1,30 @@
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.log
+*.tmp
+*.swp
+*.swo
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# Maven
+target/
+
+# Gradle
+build/
+.gradle/
+
+# Others
+.DS_Store
+Thumbs.db
+
+.idea
+.fleet
+.github
+docs

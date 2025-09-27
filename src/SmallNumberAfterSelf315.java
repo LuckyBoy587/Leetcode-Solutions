@@ -1,0 +1,2 @@
+public class SmallNumberAfterSelf315 {
+}

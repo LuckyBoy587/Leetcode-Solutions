@@ -1,0 +1,19 @@
+import java.util.PriorityQueue;
+
+public class KthLargestElement215 {
+    private static class Solution {
+        public int findKthLargest(int[] nums, int k) {
+            PriorityQueue<Integer> pq = new PriorityQueue<>();
+            for (int n: nums) {
+                if (pq.size() < k) {
+                    pq.add(n);
+                } else if (n > pq.peek()) {
+                    pq.poll();
+                    pq.add(n);
+                }
+            }
+
+            return pq.peek();
+        }
+    }
+}
