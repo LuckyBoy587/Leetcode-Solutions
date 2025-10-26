@@ -1,3 +1,7 @@
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.TreeMap;
+
 void main() {
     Solution solution = new Solution();
     int[] nums = {1, 90};
@@ -9,44 +13,17 @@ void main() {
 
 private static class Solution {
     public int maxFrequency(int[] nums, int k, int numOperations) {
-        int[] minAndMax = getMinAndMax(nums);
-        int offset = -minAndMax[0] + k;
-        int size = minAndMax[1] + 10 + offset + k;
-
-        int[] range = new int[size];
-        int[] freqBeforeOperations = new int[size];
-        for (int num : nums) {
-            freqBeforeOperations[num + offset]++;
-            addToRange(range, num + offset, k);
-        }
-
-        int[] freqAfterOperations = new int[size];
-        freqAfterOperations[0] = range[0];
-        for (int i = 1; i < size; i++) {
-            freqAfterOperations[i] = freqAfterOperations[i - 1] + range[i];
-        }
-
-        int maxFreq = 0;
-        for (int i = 0; i < size; i++) {
-            int currBefore = freqBeforeOperations[i];
-            int currAfter = freqAfterOperations[i];
-            maxFreq = Math.max(maxFreq, Math.max(currBefore, Math.min(currAfter, currBefore + numOperations)));
-        }
-
-        return maxFreq;
+        Map<Integer, Integer> freqMap = getFrequencyMap(nums);
+        PriorityQueue<Integer> pq = new PriorityQueue<>((n1, n2) -> freqMap.get(n2) - freqMap.get(n1));
+        int left = 0, right = 1;
+        return -1;
     }
 
-    private void addToRange(int[] range, int num, int k) {
-        range[num - k]++;
-        range[num + k + 1]--;
-    }
-
-    private int[] getMinAndMax(int[] nums) {
-        int min = nums[0], max = nums[0];
+    private Map<Integer, Integer> getFrequencyMap(int[] nums) {
+        Map<Integer, Integer> freqMap = new TreeMap<>();
         for (int num : nums) {
-            min = Math.min(min, num);
-            max = Math.max(max, num);
+            freqMap.merge(num, 1, Integer::sum);
         }
-        return new int[]{min, max};
+        return freqMap;
     }
 }

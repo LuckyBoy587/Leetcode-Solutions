@@ -29,4 +29,39 @@ public class KthLargestSum2583 {
             return -1;
         }
     }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        // Example 1
+        TreeNode root1 = buildTree(new Integer[]{5,8,9,2,1,3,7,4,6});
+        long result1 = sol.kthLargestLevelSum(root1, 2);
+        assert result1 == 13 : "Example 1 failed: expected 13, got " + result1;
+        // Example 2
+        TreeNode root2 = buildTree(new Integer[]{1,2,null,3});
+        long result2 = sol.kthLargestLevelSum(root2, 1);
+        assert result2 == 3 : "Example 2 failed: expected 3, got " + result2;
+        System.out.println("All tests passed!");
+    }
+
+    private static TreeNode buildTree(Integer[] arr) {
+        if (arr == null || arr.length == 0) return null;
+        TreeNode root = new TreeNode(arr[0]);
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        int i = 1;
+        while (!queue.isEmpty() && i < arr.length) {
+            TreeNode node = queue.poll();
+            if (arr[i] != null) {
+                node.left = new TreeNode(arr[i]);
+                queue.add(node.left);
+            }
+            i++;
+            if (i < arr.length && arr[i] != null) {
+                node.right = new TreeNode(arr[i]);
+                queue.add(node.right);
+            }
+            i++;
+        }
+        return root;
+    }
 }
