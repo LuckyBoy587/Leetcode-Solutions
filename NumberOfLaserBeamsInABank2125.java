@@ -1,6 +1,5 @@
 void main() {
 
-    
 }
 
 private static class Solution {
